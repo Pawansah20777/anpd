@@ -1,39 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom'; 
 import './Header.css';
 
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const navigate = useNavigate(); 
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+  const handleSignInClick = () => {
+    navigate('/signin'); 
   };
 
   return (
-    <Navbar className={darkMode ? 'dark-navbar' : 'light-navbar'}>
-      <Navbar.Brand className={darkMode ? 'text-white' : 'text-black'}>
-       Automatic Number Plate Detection 
+    <Navbar className="dark-navbar"> 
+      <Navbar.Brand className="brand">
+        Automatic Number Plate Detection
       </Navbar.Brand>
-      <Nav className="ms-auto">
-        <Nav.Link href="#home" className={darkMode ? 'text-white' : 'text-black'}>
-          Home
-        </Nav.Link>
-        <Nav.Link href="#about" className={darkMode ? 'text-white' : 'text-black'}>
-          About
-        </Nav.Link>
-        <Nav.Link href="#contact" className={darkMode ? 'text-white' : 'text-black'}>
-          Contact
-        </Nav.Link>
-        <Button 
-          variant="primary" 
-          style={{ backgroundColor: '#5E4B8D', border: 'none' }} 
-          className={darkMode ? 'text-white' : 'text-black'}
-        >
-          Login
+      <Nav className="ms-auto"> {/* Use ms-auto to align items to the right */}
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="#about" className="nav-link">About</Link>
+        <Link to="#contact" className="nav-link">Contact</Link>
+        <Link to="/camera" className="nav-link">Camera</Link>
+        <Button variant="primary" className="sign-in-button" onClick={handleSignInClick}>
+          Sign In
         </Button>
-        <Nav.Link onClick={toggleDarkMode} className={darkMode ? 'text-white' : 'text-black'}>
-          {darkMode ? 'Light Mode' : 'Dark Mode'}
-        </Nav.Link>
       </Nav>
     </Navbar>
   );

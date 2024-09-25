@@ -1,0 +1,15 @@
+/* App.css */
+html, body {
+    height: 100%; /* Make sure the body takes the full height */
+    margin: 0; /* Remove default margin */
+}
+
+.App {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+    min-height: 100vh; /* Make sure it takes the full viewport height */
+}
+
+.content {
+    flex: 1; /* This allows the content to grow and push the footer down */
+}
