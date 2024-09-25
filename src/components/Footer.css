@@ -1,0 +1,33 @@
+.footer {
+    background-color: #333; /* Dark background */
+    color: white; /* White text */
+    padding: 20px 0; /* Padding for the footer */
+  }
+  
+  .footer h5 {
+    margin-bottom: 15px; /* Space below headings */
+  }
+  
+  .footer p {
+    margin-bottom: 10px; /* Space below paragraphs */
+  }
+  
+  .social-links {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+  }
+  
+  .social-links li {
+    margin: 5px 0; /* Space between links */
+  }
+  
+  .social-links a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .social-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  

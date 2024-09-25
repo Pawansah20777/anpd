@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Button, Form, Container, Row, Col, Card, Navbar, Nav } from 'react-bootstrap';
+import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
 
 const CameraApp = () => {
   const [cameraActive, setCameraActive] = useState(false);
@@ -9,7 +9,6 @@ const CameraApp = () => {
   const [detectedPlate, setDetectedPlate] = useState('');
   const [imageGallery, setImageGallery] = useState([]);
   const [largeFeed, setLargeFeed] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -29,16 +28,18 @@ const CameraApp = () => {
   const startCamera = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef.current.srcObject = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
     }
   };
 
   const stopCamera = () => {
-    const stream = videoRef.current.srcObject;
-    if (stream) {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
       stream.getTracks().forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
     }
-    videoRef.current.srcObject = null;
   };
 
   const captureImage = () => {
@@ -65,25 +66,14 @@ const CameraApp = () => {
     setCapturedImage(null);
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   const appStyles = {
-    backgroundColor: darkMode ? '#343a40' : '#f8f9fa',
-    color: darkMode ? 'white' : 'black',
+    backgroundColor: '#f8f9fa',
+    color: 'black',
     minHeight: '100vh',
   };
 
   return (
     <div style={appStyles}>
-      <Navbar bg={darkMode ? 'dark' : 'light'} variant={darkMode ? 'dark' : 'light'}>
-        <Navbar.Brand href="#home">Number Plate Detection Application</Navbar.Brand>
-        <Nav className="ml-auto">
-          <Nav.Link onClick={toggleDarkMode}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Nav.Link>
-        </Nav>
-      </Navbar>
-
       <Container className="mt-4">
         <Row>
           {/* Camera Section */}

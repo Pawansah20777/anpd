@@ -1,0 +1,15 @@
+.dark-navbar {
+  background-color:  #333;
+  color: white; 
+}
+
+.light-navbar {
+  background-color: white; 
+  color: #333;
+}
+
+.navbar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle raised shadow */
+}
+
+
