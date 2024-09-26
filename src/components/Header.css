@@ -1,11 +1,12 @@
 /* Header.css */
 
 .dark-navbar {
-  background-color: #333; /* Dark background for navbar */
+  background-color:#5E4B8D; /* Dark background for navbar */
 }
 
 .brand {
   color: white; /* White text for brand */
+  margin-left: 5px; /*
 }
 
 .nav-link {
