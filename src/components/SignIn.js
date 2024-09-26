@@ -16,7 +16,7 @@ const SignIn = () => {
       return;
     }
     setError('');
-    navigate("/home");
+    navigate("/");
     console.log('Signed in with:', email, password);
   };
 

@@ -23,7 +23,7 @@ const SignUp = () => {
     }
     setError('');
     console.log('Signed up with:', { name, email, password });
-    navigate("/home");
+    navigate("/signin");
   };
 
   return (
