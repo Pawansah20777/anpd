@@ -6,6 +6,8 @@ import Footer from "./components/Footer";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
+import ForgotPassword from "./components/ForgotPassword";
+
 import Private from './components/Private';
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/camera" element={<CameraApp />} />
           </Routes>
         </div>

@@ -1,30 +1,48 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate,Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 import './SignIn.css'; 
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError('Email and password are required');
-      return;
-    }
-    setError('');
-    navigate("/");
-    console.log('Signed in with:', email, password);
+
+    let result = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: { 'Content-Type': 'application/json' }
+     });
+
+    result = await result.json();
+
+   if(result.user && result.userType === "user") {
+      localStorage.setItem("users", JSON.stringify(result.user));
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "You are Successfully Logged",
+        showConfirmButton: false,
+        timer: 2500
+    });
+      navigate('/');
+    } 
+   else if (result.user && result.userType === "admin") {
+      localStorage.setItem("admins", JSON.stringify(result.user));
+      navigate('/Admin');
+   } 
+  else {
+      alert("Please fill correct details!");
+     }
   };
 
   return (
     <div className="container d-flex align-items-center justify-content-center vh-100">
       <div className="card shadow-lg p-4 rounded">
         <h2 className="text-center mb-4">Sign In</h2>
-        {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group mb-3">
             <label htmlFor="email">Email</label>
@@ -55,11 +73,11 @@ const SignIn = () => {
           </button>
         </form>
         <div className="text-center mt-3">
-          <a href="/forgot-password" className="text-muted">Forgot Password?</a>
+          <Link to="/forgot-password" className="text-muted">Forgot Password?</Link>
         </div>
         <div className="text-center mt-2">
           <span className="text-muted">Don't have an account? </span>
-          <a href="/signup" className="text-primary">Sign Up</a>
+          <Link to="/signup" className="text-primary">Sign Up</Link>
         </div>
       </div>
     </div>

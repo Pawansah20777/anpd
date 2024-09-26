@@ -1,29 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate,Link } from 'react-router-dom';
 import './SignUp.css'; 
 
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [Cpassword, setCpassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    if (!name || !email || !password || !confirmPassword) {
-      setError('All fields are required');
-      return;
-    }
-    if (password !== confirmPassword) {
+    if (password !== Cpassword) {
       setError('Passwords do not match');
       return;
     }
-    setError('');
-    console.log('Signed up with:', { name, email, password });
-    navigate("/signin");
+
+    const response = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password, Cpassword }),
+      headers: { "Content-Type": "application/json" },
+      });
+
+    const result = await response.json();
+    if (result) {
+      navigate("/signin");
+    }
+  
+   
   };
 
   return (
@@ -69,13 +74,13 @@ const SignUp = () => {
             />
           </div>
           <div className="form-group mb-3">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="Cpassword">Confirm Password</label>
             <input
               type="password"
               className="form-control"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              id="Cpassword"
+              value={Cpassword}
+              onChange={(e) => setCpassword(e.target.value)}
               placeholder="Confirm your password"
               required
             />
@@ -86,7 +91,7 @@ const SignUp = () => {
         </form>
         <div className="text-center mt-3">
           <span className="text-muted">Already have an account? </span>
-          <a href="/signin" className="text-primary">Sign In</a>
+          <Link to="/signin" className="text-primary">Sign In</Link>
         </div>
       </div>
     </div>
