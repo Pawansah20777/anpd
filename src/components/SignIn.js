@@ -22,7 +22,7 @@ const SignIn = () => {
    if(result.user && result.userType === "user") {
       localStorage.setItem("users", JSON.stringify(result.user));
       Swal.fire({
-        position: "top-center",
+        position: "top",
         icon: "success",
         title: "You are Successfully Logged",
         showConfirmButton: false,
