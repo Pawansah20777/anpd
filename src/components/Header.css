@@ -1,15 +1,51 @@
+/* Header.css */
+
 .dark-navbar {
-  background-color:  #333;
-  color: white; 
+  background-color:#5E4B8D; /* Dark background for navbar */
 }
 
-.light-navbar {
-  background-color: white; 
-  color: #333;
+.brand {
+  color: white; /* White text for brand */
+  margin-left: 5px; /*
 }
 
-.navbar {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle raised shadow */
+.nav-link {
+  color: white; /* White text for nav links */
+  margin: 0 10px; /* Spacing between links */
+  text-decoration: none; /* Remove underline from links */
 }
 
+.nav-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
 
+.sign-in-button {
+  background-color: #5E4B8D; /* Custom background color for button */
+  border: none; /* Remove border */
+  color: white; /* White text for button */
+  margin-right: 10px; /* Add right margin */
+}
+
+.sign-in-button:hover {
+  background-color: #4a3f6c; /* Darker shade on hover for button */
+}
+
+/* Ensure all navbar elements are white */
+.navbar, .navbar-brand, .nav-link, .sign-in-button {
+  color: white !important; /* Force white text color */
+}
+
+.ms-auto{
+  margin-right: 10px;
+}
+.getUserName{
+  text-decoration: none;
+  color: white;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+
+.fa{
+  margin-left: 15px;
+  margin-bottom:2px ;
+}

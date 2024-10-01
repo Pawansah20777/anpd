@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
+import React, { useState, useRef, useEffect } from "react";
+import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
+import './CameraApp.css'; // Importing the CSS file
 
 const CameraApp = () => {
   const [cameraActive, setCameraActive] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
-  const [plateNumber, setPlateNumber] = useState('');
-  const [carPassed, setCarPassed] = useState('');
-  const [detectedPlate, setDetectedPlate] = useState('');
+  const [plateNumber, setPlateNumber] = useState("");
+  const [carPassed, setCarPassed] = useState("");
+  const [detectedPlate, setDetectedPlate] = useState("");
   const [imageGallery, setImageGallery] = useState([]);
   const [largeFeed, setLargeFeed] = useState(false);
 
@@ -44,72 +45,75 @@ const CameraApp = () => {
 
   const captureImage = () => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-    const imageData = canvas.toDataURL('image/png');
+    const imageData = canvas.toDataURL("image/png");
     setCapturedImage(imageData);
     setImageGallery([...imageGallery, imageData]);
     setCameraActive(false);
   };
 
   const downloadImage = (imageData) => {
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = imageData;
-    a.download = 'captured_image.png';
+    a.download = "captured_image.png";
     a.click();
   };
 
   const clearFields = () => {
-    setPlateNumber('');
-    setCarPassed('');
-    setDetectedPlate('');
+    setPlateNumber("");
+    setCarPassed("");
+    setDetectedPlate("");
     setCapturedImage(null);
   };
 
-  const appStyles = {
-    backgroundColor: '#f8f9fa',
-    color: 'black',
-    minHeight: '100vh',
+  const resetCamera = () => {
+    clearFields();
+    setCameraActive(false);
+  };
+
+  const resetGallery = () => {
+    setImageGallery([]);
   };
 
   return (
-    <div style={appStyles}>
+    <div className="app-container">
       <Container className="mt-4">
         <Row>
           {/* Camera Section */}
-          <Col md={6}>
-            <Card className="mb-4">
+          <Col md={4}>
+            <Card className="mb-4 equal-height-card">
               <Card.Header>Camera Feed</Card.Header>
               <Card.Body>
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  className="mb-2"
-                  style={{ width: largeFeed ? '100%' : '80%', display: cameraActive ? 'block' : 'none' }}
-                />
-                <canvas ref={canvasRef} width="640" height="480" style={{ display: 'none' }} />
-                {!cameraActive && capturedImage && (
-                  <img src={capturedImage} alt="Captured" style={{ width: '100%' }} className="mb-2" />
-                )}
-                <Button variant="primary" onClick={() => setCameraActive(true)} className="mr-2">
-                  Start Camera
-                </Button>
-                <Button variant="success" onClick={captureImage} disabled={!cameraActive} className="mr-2">
-                  Capture Image
-                </Button>
-                <Button variant="secondary" onClick={() => setCameraActive(false)} disabled={!cameraActive} className="mr-2">
-                  Cancel Capture
-                </Button>
-                <Button variant="info" onClick={() => setLargeFeed(!largeFeed)} className="mr-2">
-                  {largeFeed ? 'Small Feed' : 'Large Feed'}
-                </Button>
+                <div className={`camera-container ${largeFeed ? 'large-feed' : ''}`}>
+                  <video ref={videoRef} autoPlay className="video-feed" />
+                  <canvas ref={canvasRef} width="640" height="480" className="hidden-canvas" />
+                  {!cameraActive && capturedImage && (
+                    <img src={capturedImage} alt="Captured" className="captured-image" />
+                  )}
+                </div>
+                <div className="button-group">
+                  <Button variant="primary" onClick={() => setCameraActive(true)} className="mb-2">
+                    Start Camera
+                  </Button>
+                  <Button variant="success" onClick={captureImage} disabled={!cameraActive} className="mb-2">
+                    Capture Image
+                  </Button>
+                  <Button variant="secondary" onClick={() => setCameraActive(false)} disabled={!cameraActive} className="mb-2">
+                    Cancel Capture
+                  </Button>
+                 
+                  <Button variant="danger" onClick={resetCamera} disabled={!capturedImage} className="mb-2">
+                    Reset
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           </Col>
 
           {/* Details Section */}
-          <Col md={6}>
-            <Card className="mb-4">
+          <Col md={4}>
+            <Card className="mb-4 equal-height-card">
               <Card.Header>Details</Card.Header>
               <Card.Body>
                 <Form>
@@ -143,26 +147,47 @@ const CameraApp = () => {
                 </Form>
               </Card.Body>
             </Card>
-
-            {/* Image Gallery Section */}
-            {imageGallery.length > 0 && (
-              <Card className="mb-4">
-                <Card.Header>Image Gallery</Card.Header>
-                <Card.Body>
-                  <Row>
-                    {imageGallery.map((image, index) => (
-                      <Col key={index} xs={6} className="mb-3">
-                        <img src={image} alt={`Captured ${index}`} style={{ width: '100%' }} />
-                        <Button variant="primary" onClick={() => downloadImage(image)} className="mt-2">
-                          Download
-                        </Button>
-                      </Col>
-                    ))}
-                  </Row>
-                </Card.Body>
-              </Card>
-            )}
           </Col>
+{/* Image Gallery Section */}
+<Col md={4}>
+  <Card className="mb-4 equal-height-card">
+    <Card.Header>Image Gallery</Card.Header>
+    <Card.Body>
+      {imageGallery.length > 0 ? (
+        <Row>
+          {imageGallery.map((image, index) => (
+            <Col key={index} xs={6} className="mb-3 image-gallery-item">
+              <img
+                src={image}
+                alt={`Captured ${index}`}
+                className="gallery-image"
+              />
+              <div className="gallery-buttons d-flex justify-content-start mt-2">
+                <Button
+                  variant="primary"
+                  onClick={() => downloadImage(image)}
+                  className="me-2" // Adds space to the right
+                >
+                  Download
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={resetGallery}
+                >
+                  Reset 
+                </Button>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <p>No images captured yet.</p>
+      )}
+    </Card.Body>
+  </Card>
+</Col>
+
+
         </Row>
       </Container>
     </div>

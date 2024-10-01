@@ -1,0 +1,106 @@
+.home {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.hero-section {
+  background-image: url('../assets/f.webp'); 
+  background-size: cover;
+  color: white;
+  padding: 100px 20px;
+}
+
+.hero-section h2 {
+  color: #FFFFFF;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.cta-button {
+  background-color: #5E4B8D;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #4a3f6c;
+}
+
+.features, .how-it-works, .admins {
+  padding: 50px 20px;
+  text-align: center;
+  color: #4a3f6c;
+}
+
+.features h2, .how-it-works h2, .admins h2 {
+  margin-bottom: 30px;
+  background-color: rgb(149, 111, 184);
+}
+
+.feature-list, .admin-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; /* Allows wrapping to next line on smaller screens */
+  gap: 20px; /* Space between cards */
+}
+
+.feature, .admin-card {
+  width: 300px; /* Fixed width for consistent card size */
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Raised effect */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 20px; /* Space between cards */
+}
+
+.feature:hover, .admin-card:hover {
+  transform: translateY(-10px); /* Hover effect to raise the card */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.feature img {
+  width: 100%;
+  height: 200px; /* Same height for all images */
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
+}
+.admin-card img{
+  width: 100%;
+  height: 300px; /* Same height for all images */
+}
+
+.feature h3, .admin-card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+  color: #4a3f6c;
+}
+
+.feature p, .admin-card p {
+  padding: 0 15px 20px;
+  color: #666;
+}
+
+.how-it-works-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.how-it-works-content img {
+  max-width: 700px; 
+  margin-right: 20px;
+}
+
+.how-it-works-content p {
+  text-align: left;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
